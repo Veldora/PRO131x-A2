@@ -35,7 +35,7 @@ public class EmployeeManagement {
         ArrayList<Employee> empFound = new ArrayList<>();
         //your code
         for (Employee matchEmp : listE) {
-        	if (matchEmp.getFullName().toLowerCase().contains(name.toLowerCase())) {
+        	if (matchEmp.getFullName().toLowerCase().contains(name.toLowerCase())) {	// check if employee's name contains the input
         		empFound.add(matchEmp);
         	}
         }
@@ -48,12 +48,12 @@ public class EmployeeManagement {
         for (Employee matchEmp : listE) {
         	if (matchEmp instanceof Staff) {
         		Staff tempEmp = (Staff) matchEmp;
-        		if (tempEmp.getDepartment().toLowerCase().contains(dept.toLowerCase())) {
+        		if (tempEmp.getDepartment().toLowerCase().contains(dept.toLowerCase())) {	// check if the department contains the input
         			empFound.add(matchEmp);
         		}
         	} else {
         		Teacher tempEmp = (Teacher) matchEmp;
-        		if (tempEmp.getFaculty().toLowerCase().contains(dept.toLowerCase())) {
+        		if (tempEmp.getFaculty().toLowerCase().contains(dept.toLowerCase())) {	// same with faculty
         			empFound.add(matchEmp);
         		}
         	}
