@@ -6,6 +6,7 @@
 package pro192xa3.ui;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import jdk.nashorn.internal.parser.Lexer;
 import pro192xa3.business.AllowanceCalulator;
@@ -34,8 +35,17 @@ public class PRO192xA3 {
             //your code
             System.out.print("Name: ");
             s.setFullName(scan().nextLine());
-            System.out.print("Salary ratio: ");
-            s.setSalaryRatio(scan().nextDouble());
+            boolean salaryValid = false;
+            while (!salaryValid) {
+            	salaryValid = true;
+	            try {
+	            	System.out.print("Salary ratio: ");
+	            	s.setSalaryRatio(scan().nextDouble());
+	            } catch (InputMismatchException e) {
+	            	System.out.println("Invalid input!");
+	            	salaryValid = false;
+	            }
+            }
             System.out.print("Department: ");
             s.setDepartment(scan().nextLine());
             
@@ -44,14 +54,14 @@ public class PRO192xA3 {
             do {
             	valid = true;
 	            System.out.print("Position (1=HEAD; 2=VICE HEAD; 3=STAFF): ");
-	            switch(scan().nextInt()) {
-	            case 1:
+	            switch(scan().nextLine()) {
+	            case "1":
 	            	s.setPosition(EPosition.HEAD);
 	            	break;
-	            case 2:
+	            case "2":
 	            	s.setPosition(EPosition.VICE_HEAD);
 	            	break;
-	            case 3:
+	            case "3":
 	            	s.setPosition(EPosition.STAFF);
 	            	break;
 	            default:
@@ -60,9 +70,17 @@ public class PRO192xA3 {
 	            	break;
 	            }
             } while (!valid);
-            
-            System.out.print("Number of working days: ");
-            s.setNoOfWorkingDay(scan().nextInt());
+            boolean numValid = false;
+            while (!numValid) {
+            	numValid = true;
+	            try {
+	            	System.out.print("Number of working days: ");
+	                s.setNoOfWorkingDay(scan().nextInt());
+	            } catch (InputMismatchException e) {
+	            	System.out.println("Invalid input!");
+	            	numValid = false;
+	            }
+            }
             return s;
 
         } else {
@@ -71,8 +89,18 @@ public class PRO192xA3 {
             //your code
             System.out.print("Name: ");
             t.setFullName(scan().nextLine());
-            System.out.print("Salary ratio: ");
-            t.setSalaryRatio(scan().nextDouble());
+            boolean salaryValid = false;
+            while (!salaryValid) {
+            	salaryValid = true;
+	            try {
+	            	System.out.print("Salary ratio: ");
+	                t.setSalaryRatio(scan().nextDouble());
+	            } catch (InputMismatchException e) {
+	            	System.out.println("Invalid input!");
+	            	salaryValid = false;
+	            }
+            }
+            
             System.out.print("Faculty: ");
             t.setFaculty(scan().nextLine());
             
@@ -81,14 +109,14 @@ public class PRO192xA3 {
             do {
             	valid = true;
 	            System.out.print("Degree (1=BACHELOR; 2=MASTER; 3=DOCTOR): ");
-	            switch(scan().nextInt()) {
-	            case 1:
+	            switch(scan().nextLine()) {
+	            case "1":
 	            	t.setDegree(EDegree.BACHELOR);;
 	            	break;
-	            case 2:
+	            case "2":
 	            	t.setDegree(EDegree.MASTER);
 	            	break;
-	            case 3:
+	            case "3":
 	            	t.setDegree(EDegree.DOCTOR);;
 	            	break;
 	            default:
@@ -98,8 +126,18 @@ public class PRO192xA3 {
 	            }
             } while (!valid);
             
-            System.out.print("Number of teaching hours: ");
-            t.setTeachingHours(scan().nextInt());
+            boolean numValid = false;
+            while (!numValid) {
+            	numValid = true;
+	            try {
+	            	System.out.print("Number of teaching hours: ");
+	                t.setTeachingHours(scan().nextInt());
+	            } catch (InputMismatchException e) {
+	            	System.out.println("Invalid input!");
+	            	numValid = false;
+	            }
+            }
+            
             return t;
         }
 
