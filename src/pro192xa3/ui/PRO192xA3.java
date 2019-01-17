@@ -43,7 +43,7 @@ public class PRO192xA3 {
 	            	System.out.print("Salary ratio: ");
 	            	s.setSalaryRatio(scan().nextDouble());
 	            } catch (InputMismatchException e) {
-	            	System.out.println("Invalid input!");
+	            	System.out.println("Invalid input! You must enter a double!");
 	            	salaryValid = false;
 	            }
             }
@@ -66,7 +66,7 @@ public class PRO192xA3 {
 	            	s.setPosition(EPosition.STAFF);
 	            	break;
 	            default:
-	            	System.out.println("Invalid input!");
+	            	System.out.println("Invalid input! You must enter 1, 2 or 3!");
 	            	valid = false;
 	            	break;
 	            }
@@ -78,7 +78,7 @@ public class PRO192xA3 {
 	            	System.out.print("Number of working days: ");
 	                s.setNoOfWorkingDay(scan().nextInt());
 	            } catch (InputMismatchException e) {
-	            	System.out.println("Invalid input!");
+	            	System.out.println("Invalid input! You must enter an integer!");
 	            	numValid = false;
 	            }
             }
@@ -97,7 +97,7 @@ public class PRO192xA3 {
 	            	System.out.print("Salary ratio: ");
 	                t.setSalaryRatio(scan().nextDouble());
 	            } catch (InputMismatchException e) {
-	            	System.out.println("Invalid input!");
+	            	System.out.println("Invalid input! You must enter a double!");
 	            	salaryValid = false;
 	            }
             }
@@ -121,7 +121,7 @@ public class PRO192xA3 {
 	            	t.setDegree(EDegree.DOCTOR);;
 	            	break;
 	            default:
-	            	System.out.println("Invalid input!");
+	            	System.out.println("Invalid input! You must enter 1, 2 or 3!");
 	            	valid = false;
 	            	break;
 	            }
@@ -134,7 +134,7 @@ public class PRO192xA3 {
 	            	System.out.print("Number of teaching hours: ");
 	                t.setTeachingHours(scan().nextInt());
 	            } catch (InputMismatchException e) {
-	            	System.out.println("Invalid input!");
+	            	System.out.println("Invalid input! You must enter an integer!");
 	            	numValid = false;
 	            }
             }
@@ -166,7 +166,7 @@ public class PRO192xA3 {
         } catch (FileNotFoundException ef) {
         	System.out.println("*****Load data: data.txt file not found.");
         } catch (IOException e) {
-        	System.out.println("Can't read data from data.txt!");
+        	System.out.println("Can't read data from data.txt! Check your file type!");
         }
         
         //menu
@@ -201,7 +201,7 @@ public class PRO192xA3 {
                     try {
                     	empMan.save(emp, "data.txt");
                     } catch (IOException e) {
-                    	System.out.println("Can't write data to data.txt!");
+                    	System.out.println("Can't write data to data.txt! Check your file type!");
                     }
                     break;
                 case 2://search by name                    
