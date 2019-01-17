@@ -162,12 +162,29 @@ public class PRO192xA3 {
         // create employee management object
         EmployeeManagement empMan = new EmployeeManagement();
         // try load file then handle exceptions
-        try {
-        	empMan.load("data.txt");
-        } catch (FileNotFoundException ef) {
-        	System.out.println("*****Load data: data.txt file not found.");
-        } catch (IOException e) {
-        	System.out.println("Can't read data from data.txt! Check your file type!");
+        boolean loading = true;
+        String path = "data.txt";
+        while (loading) {
+	        try {
+	        	loading = false;
+	        	empMan.load(path);
+	        } catch (FileNotFoundException ef) {
+	        	loading = true;
+	        	System.out.println("*****Load data: " + path +" file not found.");
+	        	System.out.print("Do you want to set path? (y for yes, other for no) ");
+	        	switch (scan().nextLine().toLowerCase()) {
+	        	case "y":
+	        		System.out.print("Enter new path: ");
+	        		path = scan().nextLine();
+	        		break;
+	        	default:
+	        		loading = false;
+	        		break;
+	        	}
+	        } catch (IOException e) {
+	        	loading = false;
+	        	System.out.println("Can't read data from data.txt! Check your file type!");
+	        }
         }
         
         //menu
