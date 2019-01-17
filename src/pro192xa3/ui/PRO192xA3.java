@@ -5,6 +5,8 @@
  */
 package pro192xa3.ui;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -27,8 +29,7 @@ public class PRO192xA3 {
     static Employee createNewImployee() {
         System.out.print("Do you want to create a Staff or a Teacher (enter S for Staff, otherwise for Teacher)?");
         //accept Staff or Teacher details from keyboard        
-        Scanner scan = new Scanner(System.in);
-        String choice = scan.nextLine();
+        String choice = scan().nextLine();
         if (choice.equalsIgnoreCase("s")) {
             Staff s = new Staff();
             //input staff details
@@ -160,8 +161,15 @@ public class PRO192xA3 {
     public static void main(String[] args) {
         // create employee management object
         EmployeeManagement empMan = new EmployeeManagement();
+        try {
+        	empMan.load("data.txt");
+        } catch (FileNotFoundException ef) {
+        	System.out.println("*****Load data: data.txt file not found.");
+        } catch (IOException e) {
+        	System.out.println("Can't read data from data.txt!");
+        }
+        
         //menu
-        Scanner scan = new Scanner(System.in);
         boolean keepRunning = true;
         while (keepRunning) {
             System.out.println("University Staff Management 1.0");
@@ -171,25 +179,40 @@ public class PRO192xA3 {
             System.out.println("\t4.Display all staff");
             System.out.println("\t5.Exit");
             System.out.print("Select function (1,2,3,4 or 5): ");
-            int choice = scan.nextInt();
+            
+            int choice = 0;
+            boolean valid = false;
+            while (!valid) {
+            	valid = true;
+            	try {
+            		choice = scan().nextInt();
+            	} catch (InputMismatchException e) {
+            		System.out.print("Please enter 1, 2, 3, 4 or 5: ");
+            		valid = false;
+            	}
+            }
+            
             switch (choice) {
                 case 1://add staff/teacher    
                     Employee emp = createNewImployee();
                     int allowance = AllowanceCalulator.calculateAllowance(emp);
                     emp.setAllowance(allowance);
                     empMan.addEmployee(emp);
+                    try {
+                    	empMan.save(emp, "data.txt");
+                    } catch (IOException e) {
+                    	System.out.println("Can't write data to data.txt!");
+                    }
                     break;
                 case 2://search by name                    
                     System.out.print("\tEnter name to search: ");
-                    scan = new Scanner(System.in);
-                    String name = scan.nextLine();
+                    String name = scan().nextLine();
                     ArrayList<Employee> foundByName = empMan.searchByName(name);
                     display(foundByName);
                     break;
                 case 3://search by dept
                     System.out.print("\tEnter dept/fac to search: ");
-                    scan = new Scanner(System.in);
-                    String dept = scan.nextLine();
+                    String dept = scan().nextLine();
                     ArrayList<Employee> foundByDept = empMan.searchByDept(dept);
                     display(foundByDept);
                     break;
@@ -200,6 +223,10 @@ public class PRO192xA3 {
                 case 5://exit
                 	System.out.println("Bye!");
                     keepRunning = false;
+                    break;
+                default:
+                	System.out.println("Please enter 1, 2, 3, 4 or 5!");
+                	break;
             }
             System.out.println();
         }

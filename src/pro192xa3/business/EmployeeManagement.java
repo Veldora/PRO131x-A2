@@ -7,6 +7,15 @@ package pro192xa3.business;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.io.File;
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.FileNotFoundException;
+import pro192xa3.entity.EDegree;
+import pro192xa3.entity.EPosition;
 import pro192xa3.entity.Employee;
 import pro192xa3.entity.Staff;
 import pro192xa3.entity.Teacher;
@@ -66,6 +75,77 @@ public class EmployeeManagement {
         //your code
     	Collections.sort(listE);
         return listE;
+    }
+    
+    // save Employee (Staff/Teacher) to data.txt file
+    public void save(Employee emp, String fileName) throws IOException {
+    	File file;
+    	FileWriter fr = null;
+    	BufferedWriter br = null;
+    	
+    	try {
+    		file = new File(fileName);
+    		if (!file.exists()) {
+    			file.createNewFile();
+    		}
+    		fr = new FileWriter(file, true);
+    		br = new BufferedWriter(fr);
+    		if (emp instanceof Staff) {
+    			br.write("Staff, " + emp.toString());
+    		} else {
+    			br.write("Teacher, " + emp.toString());
+    		}
+    		br.newLine();
+    	} catch (IOException e) {
+    		throw e;
+    	} finally {
+    		br.flush();
+    		br.close();
+    		fr.close();
+    	}
+    }
+    
+    // load data from data.txt
+    public void load(String fileName) throws IOException, FileNotFoundException {
+    	BufferedReader br = null;
+    	String line;
+    	String[] info;
+    	
+    	try {
+    		br = new BufferedReader(new FileReader(fileName));
+    		while ((line = br.readLine()) != null) {
+    			if (!line.equals("")) {
+					info = line.split(", ");
+					if (info[0].equals("Staff")) {
+						Staff tempStaff = new Staff();
+						tempStaff.setFullName(info[1]);
+						tempStaff.setDepartment(info[2]);
+						tempStaff.setPosition(EPosition.valueOf(info[3]));
+						tempStaff.setSalaryRatio(Double.valueOf(info[4]));
+						tempStaff.setAllowance(Integer.valueOf(info[5]));
+						tempStaff.setNoOfWorkingDay(Integer.valueOf(info[6]));
+						listE.add(tempStaff);
+					} else {
+						Teacher tempTeacher = new Teacher();
+						tempTeacher.setFullName(info[1]);
+						tempTeacher.setFaculty(info[2]);
+						tempTeacher.setDegree(EDegree.valueOf(info[3]));
+						tempTeacher.setSalaryRatio(Double.valueOf(info[4]));
+						tempTeacher.setAllowance(Integer.valueOf(info[5]));
+						tempTeacher.setTeachingHours(Integer.valueOf(info[6]));
+						listE.add(tempTeacher);
+					}
+    			}
+    		}
+    	} catch (FileNotFoundException ef) {
+    		throw ef;
+    	} catch (IOException e) {
+    		throw e;
+    	} finally {
+    		if (br != null) {
+    			br.close();
+    		}
+    	}
     }
 
 }

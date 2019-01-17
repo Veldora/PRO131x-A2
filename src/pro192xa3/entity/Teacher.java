@@ -18,8 +18,7 @@ public class Teacher extends Employee {
     private int teachingHours;//số tiết dạy
 
     public Teacher() {
-        int allowance = AllowanceCalulator.calculateAllowance((this));
-        this.setAllowance(allowance);
+    	
     }
 
     public String getFaculty() {

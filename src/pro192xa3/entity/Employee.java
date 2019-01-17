@@ -44,4 +44,6 @@ public abstract class Employee implements Comparable<Employee> {
     public int compareTo(Employee emp){
         return this.fullName.compareTo(emp.fullName);
     }
+    
+    public abstract String toString();
 }

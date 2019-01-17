@@ -1,0 +1,2 @@
+Staff, Pham Hai Nam, IT, HEAD, 12.5, 2000, 22, 11785.0
+Teacher, Nguyen Thanh Nam, IT, DOCTOR, 20.0, 1000, 10, 16050.0
