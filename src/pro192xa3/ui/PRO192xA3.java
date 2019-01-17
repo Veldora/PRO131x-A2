@@ -161,6 +161,7 @@ public class PRO192xA3 {
     public static void main(String[] args) {
         // create employee management object
         EmployeeManagement empMan = new EmployeeManagement();
+        // try load file then handle exceptions
         try {
         	empMan.load("data.txt");
         } catch (FileNotFoundException ef) {
@@ -180,6 +181,7 @@ public class PRO192xA3 {
             System.out.println("\t5.Exit");
             System.out.print("Select function (1,2,3,4 or 5): ");
             
+            // validate input
             int choice = 0;
             boolean valid = false;
             while (!valid) {
@@ -198,6 +200,7 @@ public class PRO192xA3 {
                     int allowance = AllowanceCalulator.calculateAllowance(emp);
                     emp.setAllowance(allowance);
                     empMan.addEmployee(emp);
+                    // try save file then handle exception
                     try {
                     	empMan.save(emp, "data.txt");
                     } catch (IOException e) {

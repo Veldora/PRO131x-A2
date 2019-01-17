@@ -79,6 +79,7 @@ public class EmployeeManagement {
     
     // save Employee (Staff/Teacher) to data.txt file
     public void save(Employee emp, String fileName) throws IOException {
+    	//Initialize
     	File file;
     	FileWriter fr = null;
     	BufferedWriter br = null;
@@ -86,10 +87,12 @@ public class EmployeeManagement {
     	try {
     		file = new File(fileName);
     		if (!file.exists()) {
+    			//Handle if file doesn't exist
     			file.createNewFile();
     		}
     		fr = new FileWriter(file, true);
     		br = new BufferedWriter(fr);
+    		//Check emp type and write to file
     		if (emp instanceof Staff) {
     			br.write("Staff, " + emp.toString());
     		} else {
@@ -97,8 +100,9 @@ public class EmployeeManagement {
     		}
     		br.newLine();
     	} catch (IOException e) {
-    		throw e;
+    		throw e;	//throw exception
     	} finally {
+    		// close BufferedWriter and FileWriter
     		br.flush();
     		br.close();
     		fr.close();
@@ -107,6 +111,7 @@ public class EmployeeManagement {
     
     // load data from data.txt
     public void load(String fileName) throws IOException, FileNotFoundException {
+    	// Initialize
     	BufferedReader br = null;
     	String line;
     	String[] info;
@@ -114,9 +119,11 @@ public class EmployeeManagement {
     	try {
     		br = new BufferedReader(new FileReader(fileName));
     		while ((line = br.readLine()) != null) {
+    			// read file
     			if (!line.equals("")) {
-					info = line.split(", ");
+					info = line.split(", ");	// get data
 					if (info[0].equals("Staff")) {
+						//get data
 						Staff tempStaff = new Staff();
 						tempStaff.setFullName(info[1]);
 						tempStaff.setDepartment(info[2]);
@@ -126,6 +133,7 @@ public class EmployeeManagement {
 						tempStaff.setNoOfWorkingDay(Integer.valueOf(info[6]));
 						listE.add(tempStaff);
 					} else {
+						// get data
 						Teacher tempTeacher = new Teacher();
 						tempTeacher.setFullName(info[1]);
 						tempTeacher.setFaculty(info[2]);
@@ -138,11 +146,12 @@ public class EmployeeManagement {
     			}
     		}
     	} catch (FileNotFoundException ef) {
-    		throw ef;
+    		throw ef;	//throw exception if file doesn't exist
     	} catch (IOException e) {
-    		throw e;
+    		throw e;	//throw exception
     	} finally {
     		if (br != null) {
+    			// close Buffered Reader
     			br.close();
     		}
     	}
